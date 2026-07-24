@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atendimento com IA | PreçoAI</title>
+    <meta
+      name="description"
+      content="Atendimento inteligente para transformar conversas em oportunidades de venda no PreçoAI."
+    />
+    <link rel="icon" type="image/png" href="./assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <svg class="icon-sprite" aria-hidden="true">
+      <symbol id="icon-message" viewBox="0 0 24 24">
+        <path d="M7 10h10" />
+        <path d="M7 14h6" />
+        <path d="M21 12a8.5 8.5 0 0 1-8.5 8.5H5l-3 3V12A8.5 8.5 0 0 1 10.5 3h2A8.5 8.5 0 0 1 21 12Z" />
+      </symbol>
+      <symbol id="icon-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-3.5-3.5" />
+      </symbol>
+      <symbol id="icon-tags" viewBox="0 0 24 24">
+        <path d="M20.6 13.4 11 3.8H4v7l9.6 9.6a2 2 0 0 0 2.8 0l4.2-4.2a2 2 0 0 0 0-2.8Z" />
+        <path d="M7.5 7.5h.01" />
+      </symbol>
+      <symbol id="icon-cart" viewBox="0 0 24 24">
+        <circle cx="9" cy="20" r="1.5" />
+        <circle cx="18" cy="20" r="1.5" />
+        <path d="M3 4h2l2.2 10.3a1 1 0 0 0 1 .7H18a1 1 0 0 0 1-.8L21 7H7" />
+      </symbol>
+      <symbol id="icon-clock" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 2" />
+      </symbol>
+      <symbol id="icon-whatsapp" viewBox="0 0 24 24">
+        <path d="M20 11.5A8.5 8.5 0 0 1 7.4 19l-4.4 1.4L4.4 16A8.5 8.5 0 1 1 20 11.5Z" />
+        <path d="M9 9.5c.5 2.4 3 4.9 5.4 5.4" />
+        <path d="M14.1 14.1c-.5.5-1.3.6-2 .2-1.8-.9-3.5-2.6-4.4-4.4-.4-.7-.3-1.5.2-2l.5-.5" />
+      </symbol>
+      <symbol id="icon-brain" viewBox="0 0 24 24">
+        <path d="M9 3a3 3 0 0 0-3 3v1a3 3 0 0 0-2 2.8V11a3 3 0 0 0 2 2.8V15a3 3 0 0 0 3 3h1" />
+        <path d="M15 3a3 3 0 0 1 3 3v1a3 3 0 0 1 2 2.8V11a3 3 0 0 1-2 2.8V15a3 3 0 0 1-3 3h-1" />
+        <path d="M9 12h6" />
+        <path d="M12 3v18" />
+      </symbol>
+      <symbol id="icon-box" viewBox="0 0 24 24">
+        <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" />
+        <path d="M12 12 4 7.5" />
+        <path d="M12 12l8-4.5" />
+        <path d="M12 12v9" />
+      </symbol>
+      <symbol id="icon-users" viewBox="0 0 24 24">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="3" />
+        <path d="M22 21v-2a4 4 0 0 0-3-3.9" />
+        <path d="M16 4.1a3 3 0 0 1 0 5.8" />
+      </symbol>
+      <symbol id="icon-chart" viewBox="0 0 24 24">
+        <path d="M3 3v18h18" />
+        <path d="M7 14v3" />
+        <path d="M12 10v7" />
+        <path d="M17 6v11" />
+      </symbol>
+      <symbol id="icon-history" viewBox="0 0 24 24">
+        <path d="M3 12a9 9 0 1 0 3-6.7" />
+        <path d="M3 4v5h5" />
+        <path d="M12 7v5l4 2" />
+      </symbol>
+      <symbol id="icon-api" viewBox="0 0 24 24">
+        <path d="M8 8 4 12l4 4" />
+        <path d="m16 8 4 4-4 4" />
+        <path d="m14 4-4 16" />
+      </symbol>
+      <symbol id="icon-shield" viewBox="0 0 24 24">
+        <path d="M12 3 5 6v6c0 5 3.4 8.7 7 10 3.6-1.3 7-5 7-10V6l-7-3Z" />
+        <path d="m9 12 2 2 4-4" />
+      </symbol>
+      <symbol id="icon-building" viewBox="0 0 24 24">
+        <path d="M6 21V7l6-4 6 4v14" />
+        <path d="M4 21h16" />
+        <path d="M9 10h.01" />
+        <path d="M9 14h.01" />
+        <path d="M15 10h.01" />
+        <path d="M15 14h.01" />
+      </symbol>
+      <symbol id="icon-car" viewBox="0 0 24 24">
+        <path d="M5 15 7 9h10l2 6" />
+        <path d="M3 15h18v4H3Z" />
+        <circle cx="7" cy="19" r="1.5" />
+        <circle cx="17" cy="19" r="1.5" />
+      </symbol>
+      <symbol id="icon-basket" viewBox="0 0 24 24">
+        <path d="M5 10h14l-1.2 9H6.2L5 10Z" />
+        <path d="M9 10 12 5l3 5" />
+      </symbol>
+      <symbol id="icon-pill" viewBox="0 0 24 24">
+        <path d="m8 8 8 8" />
+        <path d="M6.5 17.5a4.9 4.9 0 1 1 0-7l7 7a4.9 4.9 0 1 1-7 0Z" />
+      </symbol>
+      <symbol id="icon-monitor" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="12" rx="2" />
+        <path d="M8 20h8" />
+        <path d="M12 16v4" />
+      </symbol>
+      <symbol id="icon-paw" viewBox="0 0 24 24">
+        <path d="M12 18c-2 0-4 1.2-4 3h8c0-1.8-2-3-4-3Z" />
+        <circle cx="6" cy="10" r="2" />
+        <circle cx="10" cy="7" r="2" />
+        <circle cx="14" cy="7" r="2" />
+        <circle cx="18" cy="10" r="2" />
+      </symbol>
+      <symbol id="icon-paint" viewBox="0 0 24 24">
+        <path d="M14 4H6a2 2 0 0 0-2 2v5h10V4Z" />
+        <path d="M14 6h4a2 2 0 0 1 2 2v3" />
+        <path d="M8 11v5a4 4 0 0 0 8 0v-3" />
+      </symbol>
+      <symbol id="icon-package" viewBox="0 0 24 24">
+        <path d="m12 2 8 4.5v11L12 22l-8-4.5v-11L12 2Z" />
+        <path d="M12 22V11" />
+        <path d="M20 6.5 12 11 4 6.5" />
+      </symbol>
+      <symbol id="icon-glasses" viewBox="0 0 24 24">
+        <path d="M3 9h3l1 5a3 3 0 0 0 6 0l1-5h3" />
+        <path d="M2 9V7h20v2" />
+        <path d="M17 9h4l-1 5a3 3 0 0 1-6 0l-1-5" />
+      </symbol>
+      <symbol id="icon-leaf" viewBox="0 0 24 24">
+        <path d="M5 21c7 0 14-7 14-14V3h-4C8 3 3 8 3 15v6h2Z" />
+        <path d="M8 16c2-3 5-6 8-8" />
+      </symbol>
+      <symbol id="icon-phone" viewBox="0 0 24 24">
+        <rect x="7" y="2" width="10" height="20" rx="2" />
+        <path d="M11 18h2" />
+      </symbol>
+      <symbol id="icon-instagram" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <path d="M17.5 6.5h.01" />
+      </symbol>
+      <symbol id="icon-facebook" viewBox="0 0 24 24">
+        <path d="M14 8h3V4h-3a5 5 0 0 0-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9a1 1 0 0 1 1-1Z" />
+      </symbol>
+      <symbol id="icon-bot" viewBox="0 0 24 24">
+        <rect x="4" y="7" width="16" height="11" rx="4" />
+        <path d="M12 3v4" />
+        <circle cx="9" cy="12" r="1" />
+        <circle cx="15" cy="12" r="1" />
+        <path d="M9 15h6" />
+      </symbol>
+      <symbol id="icon-file" viewBox="0 0 24 24">
+        <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-5-5Z" />
+        <path d="M14 2v5h5" />
+        <path d="M9 13h6" />
+        <path d="M9 17h6" />
+      </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path d="m5 12 4 4L19 6" />
+      </symbol>
+      <symbol id="icon-x" viewBox="0 0 24 24">
+        <path d="m6 6 12 12" />
+        <path d="m18 6-12 12" />
+      </symbol>
+      <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+        <path d="M5 12h14" />
+        <path d="m13 6 6 6-6 6" />
+      </symbol>
+    </svg>
+
+    <div class="page-shell">
+      <header class="topbar">
+          <a class="brand" href="./index.html" aria-label="Rede de Ofertas PreçoAI">
+          <img src="./assets/favicon-wg.png" alt="" />
+          <div>
+            <strong>PreçoAI</strong>
+            <span>Rede de Ofertas</span>
+          </div>
+        </a>
+        <nav class="nav-links">
+          <a href="#como-funciona">Como funciona</a>
+          <a href="#beneficios">Benefícios</a>
+          <a href="#demonstracao">Demonstração</a>
+          <a href="#business">Plano</a>
+        </nav>
+          <a class="button button-primary" href="./rede-de-ofertas.html">Voltar para a Rede</a>
+      </header>
+
+      <main>
+        <section class="hero section" id="hero">
+          <div class="hero-copy reveal">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              Atendimento Inteligente para Comércio
+            </div>
+            <h1>Seu melhor vendedor agora trabalha 24 horas por dia.</h1>
+            <p class="hero-subtitle">
+              Automatize o atendimento, pesquise produtos, responda clientes, monte
+              carrinhos inteligentes e receba pedidos automaticamente pelo WhatsApp
+              utilizando Inteligência Artificial.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="#solicitar-demo">
+                Solicitar Demonstração
+              </a>
+              <a
+                class="button button-secondary"
+                href="https://wa.me/5595984042260?text=Ol%C3%A1%2C%20quero%20solicitar%20uma%20demonstra%C3%A7%C3%A3o%20do%20Ecommerce%20Pre%C3%A7oAI."
+                target="_blank"
+                rel="noreferrer"
+              >
+                <svg><use href="#icon-whatsapp"></use></svg>
+                Falar pelo WhatsApp
+              </a>
+            </div>
+
+            <div class="hero-metrics">
+              <div class="metric-card">
+                <strong>24/7</strong>
+                <span>Atendimento automatizado sem pausa</span>
+              </div>
+              <div class="metric-card">
+                <strong>Pedido pronto</strong>
+                <span>Do catálogo ao WhatsApp em poucos cliques</span>
+              </div>
+              <div class="metric-card">
+                <strong>Catálogo com IA</strong>
+                <span>Pesquisa natural, alternativas e promoções</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal reveal-delay" data-tilt>
+            <div class="visual-glow"></div>
+            <div class="conversation-card glass-card">
+              <div class="conversation-header">
+                <div class="status-pill">
+                  <span class="status-dot"></span>
+                  IA em atendimento
+                </div>
+                <span>WhatsApp Commerce Flow</span>
+              </div>
+              <div class="chat-stream">
+                <div class="chat-bubble chat-user">
+                  Tem tinta branca fosca?
+                </div>
+                <div class="chat-bubble chat-ai">
+                  Encontrei 3 opções em estoque. Comparei preço, volume e prazo de
+                  entrega para montar o melhor pedido.
+                </div>
+              </div>
+
+              <div class="product-inline-list">
+                <article class="product-inline">
+                  <div class="product-emoji" aria-hidden="true">🎨</div>
+                  <div>
+                    <strong>Tinta Acrílica Fosca 18L</strong>
+                    <span>R$ 97,99 • Bella</span>
+                  </div>
+                  <em>Oferta</em>
+                </article>
+                <article class="product-inline">
+                  <div class="product-emoji" aria-hidden="true">🪣</div>
+                  <div>
+                    <strong>Massa Corrida 25kg</strong>
+                    <span>R$ 49,95 • Iquine</span>
+                  </div>
+                  <em>Complemento</em>
+                </article>
+              </div>
+
+              <div class="order-summary">
+                <div>
+                  <span>Carrinho inteligente</span>
+                  <strong>2 itens • R$ 147,94</strong>
+                </div>
+                <button type="button">Gerar pedido</button>
+              </div>
+            </div>
+
+            <div class="device-stage">
+              <div class="floating-tag floating-tag-top">
+                <svg><use href="#icon-search"></use></svg>
+                Pesquisa por linguagem natural
+              </div>
+              <div class="floating-tag floating-tag-bottom">
+                <svg><use href="#icon-cart"></use></svg>
+                Pedido enviado para a loja
+              </div>
+              <div class="device-frame">
+                <img src="./assets/tela1.jpg" alt="Tela do carrinho inteligente no app PreçoAI." />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="proof-strip reveal">
+          <div class="proof-card">
+            <span>Pesquisa inteligente</span>
+            <strong>Encontre produtos, promoções e alternativas instantaneamente.</strong>
+          </div>
+          <div class="proof-card">
+            <span>Comércio em escala</span>
+            <strong>Atenda mais clientes sem depender de horário comercial.</strong>
+          </div>
+          <div class="proof-card">
+            <span>Conversão</span>
+            <strong>Transforme conversas em carrinhos e pedidos automáticos.</strong>
+          </div>
+        </section>
+
+        <section class="section" id="como-funciona">
+          <div class="section-heading reveal">
+            <span class="section-kicker">Como funciona</span>
+            <h2>Um fluxo comercial pensado para vender, não só responder.</h2>
+            <p>
+              A IA entende a intenção do cliente, pesquisa o catálogo, sugere
+              alternativas, monta o pedido e deixa a loja pronta para fechar a venda.
+            </p>
+          </div>
+
+          <div class="flow-grid">
+            <article class="flow-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-message"></use></svg></div>
+              <span class="step-number">1</span>
+              <h3>Cliente pergunta naturalmente</h3>
+              <p>“Tem tinta branca fosca?”</p>
+            </article>
+            <article class="flow-card reveal reveal-delay">
+              <div class="icon-badge"><svg><use href="#icon-search"></use></svg></div>
+              <span class="step-number">2</span>
+              <h3>A IA pesquisa automaticamente no catálogo</h3>
+              <p>Busca produtos, estoque, categorias e equivalentes em segundos.</p>
+            </article>
+            <article class="flow-card reveal reveal-delay-2">
+              <div class="icon-badge"><svg><use href="#icon-tags"></use></svg></div>
+              <span class="step-number">3</span>
+              <h3>Apresenta preços, promoções e alternativas</h3>
+              <p>Orienta o cliente com contexto comercial e melhora a decisão de compra.</p>
+            </article>
+            <article class="flow-card reveal reveal-delay-3">
+              <div class="icon-badge"><svg><use href="#icon-cart"></use></svg></div>
+              <span class="step-number">4</span>
+              <h3>Monta o pedido automaticamente e envia para a loja</h3>
+              <p>O processo já chega pronto para a equipe comercial concluir a venda.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="beneficios">
+          <div class="section-heading reveal">
+            <span class="section-kicker">Benefícios</span>
+            <h2>Arquitetura comercial pronta para operar em escala.</h2>
+            <p>
+              Tudo o que sua operação precisa para acelerar atendimento, conversão e
+              organização do time.
+            </p>
+          </div>
+
+          <div class="bento-grid">
+            <article class="bento-card bento-card-large reveal">
+              <div class="bento-copy">
+                <span class="pill">Produto em uso</span>
+                <h3>Visualização real do sistema para transmitir confiança e maturidade.</h3>
+                <p>
+                  A landing mostra a plataforma em ação com screenshots reais, reforçando
+                  percepção de produto enterprise e acelerando a decisão comercial.
+                </p>
+              </div>
+              <div class="bento-shot-stack">
+                <img src="./assets/app-1.png" alt="Tela inicial do PreçoAI no celular." />
+                <img src="./assets/app-3.png" alt="Tela de carrinho e pedido no PreçoAI." />
+              </div>
+            </article>
+
+            <article class="bento-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-clock"></use></svg></div>
+              <h3>Atendimento 24 horas</h3>
+              <p>Responda clientes a qualquer momento sem fila, pausa ou horário comercial.</p>
+            </article>
+            <article class="bento-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-whatsapp"></use></svg></div>
+              <h3>WhatsApp Oficial</h3>
+              <p>Atendimento no canal onde o cliente já compra e conversa com a sua empresa.</p>
+            </article>
+            <article class="bento-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-search"></use></svg></div>
+              <h3>Pesquisa Inteligente de Produtos</h3>
+              <p>Entende linguagem natural, sinônimos e intenção de compra.</p>
+            </article>
+            <article class="bento-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-brain"></use></svg></div>
+              <h3>Catálogo com IA</h3>
+              <p>Organize o catálogo com camadas de contexto para respostas melhores.</p>
+            </article>
+            <article class="bento-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-cart"></use></svg></div>
+              <h3>Carrinho Inteligente</h3>
+              <p>Monte itens complementares, kits e sugestões relevantes automaticamente.</p>
+            </article>
+            <article class="bento-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-package"></use></svg></div>
+              <h3>Pedido Automático</h3>
+              <p>Gere pedidos sem retrabalho e entregue a negociação pronta para a loja.</p>
+            </article>
+            <article class="bento-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-users"></use></svg></div>
+              <h3>Atendimento Humano Integrado</h3>
+              <p>Escalone para o time quando necessário, preservando contexto da conversa.</p>
+            </article>
+            <article class="bento-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-users"></use></svg></div>
+              <h3>Multiusuários</h3>
+              <p>Coordene operação, vendedores e suporte com acesso compartilhado.</p>
+            </article>
+            <article class="bento-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-chart"></use></svg></div>
+              <h3>Dashboard Comercial</h3>
+              <p>Monitore pedidos, performance de atendimento e conversão da operação.</p>
+            </article>
+            <article class="bento-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-history"></use></svg></div>
+              <h3>Histórico de Conversas</h3>
+              <p>Tenha rastreabilidade para vendas, suporte e melhorias contínuas da IA.</p>
+            </article>
+            <article class="bento-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-api"></use></svg></div>
+              <h3>APIs</h3>
+              <p>Integre a plataforma com ERP, catálogo, CRM e fluxos próprios da empresa.</p>
+            </article>
+            <article class="bento-card reveal">
+              <div class="icon-badge"><svg><use href="#icon-shield"></use></svg></div>
+              <h3>Segurança LGPD</h3>
+              <p>Operação pensada para empresas que precisam de confiabilidade e controle.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="demonstracao">
+          <div class="section-heading reveal">
+            <span class="section-kicker">Demonstração</span>
+            <h2>Veja o atendimento inteligente virando pedido automaticamente.</h2>
+            <p>
+              O cliente fala com naturalidade, a IA encontra produtos, monta carrinho e
+              prepara a mensagem final para o WhatsApp da loja.
+            </p>
+          </div>
+
+          <div class="demo-layout">
+            <div class="demo-conversation glass-card reveal">
+              <div class="conversation-line conversation-line-user">
+                <span>Cliente</span>
+                <p>Preciso de tinta branca fosca.</p>
+              </div>
+
+              <div class="conversation-line conversation-line-ai">
+                <span>IA responde</span>
+                <p>Encontrei algumas opções.</p>
+              </div>
+
+              <div class="demo-products">
+                <article class="demo-product-card">
+                  <div class="product-emoji demo-emoji" aria-hidden="true">🎨</div>
+                  <div>
+                    <strong>Tinta Acrílica Branca Neve 15L</strong>
+                    <small>Bella • Fosca • R$ 97,99</small>
+                  </div>
+                  <button type="button">Adicionar</button>
+                </article>
+                <article class="demo-product-card">
+                  <div class="product-emoji demo-emoji" aria-hidden="true">🎨</div>
+                  <div>
+                    <strong>Tinta Premium Branca Gelo 18L</strong>
+                    <small>Anjo • Fosca • R$ 109,90</small>
+                  </div>
+                  <button type="button">Adicionar</button>
+                </article>
+                <article class="demo-product-card">
+                  <div class="product-emoji demo-emoji" aria-hidden="true">🪣</div>
+                  <div>
+                    <strong>Massa Corrida 25kg</strong>
+                    <small>Iquine • Complemento • R$ 49,95</small>
+                  </div>
+                  <button type="button">Adicionar</button>
+                </article>
+              </div>
+
+              <div class="demo-step reveal">
+                <span>Adicionar ao carrinho</span>
+                <p>A IA organiza os itens, complementos e totais sem depender do vendedor.</p>
+              </div>
+
+              <div class="cart-ecommerce">
+                <div class="cart-header">
+                  <h3>Carrinho Inteligente</h3>
+                  <span>3 itens</span>
+                </div>
+                <div class="cart-item">
+                  <div class="product-emoji cart-emoji" aria-hidden="true">🎨</div>
+                  <div>
+                    <strong>Tinta Acrílica Branca Neve 15L</strong>
+                    <small>1 unidade</small>
+                  </div>
+                  <span>R$ 97,99</span>
+                </div>
+                <div class="cart-item">
+                  <div class="product-emoji cart-emoji" aria-hidden="true">🎨</div>
+                  <div>
+                    <strong>Tinta Premium Branca Gelo 18L</strong>
+                    <small>1 unidade</small>
+                  </div>
+                  <span>R$ 109,90</span>
+                </div>
+                <div class="cart-item">
+                  <div class="product-emoji cart-emoji" aria-hidden="true">🪣</div>
+                  <div>
+                    <strong>Massa Corrida 25kg</strong>
+                    <small>1 unidade</small>
+                  </div>
+                  <span>R$ 49,95</span>
+                </div>
+                <div class="cart-footer">
+                  <div>
+                    <small>Total do pedido</small>
+                    <strong>R$ 257,84</strong>
+                  </div>
+                  <button type="button">Gerar pedido</button>
+                </div>
+              </div>
+
+              <div class="whatsapp-ready">
+                <span>Mensagem pronta para WhatsApp</span>
+                <p>
+                  Olá! Separei seu pedido com 2 tintas brancas foscas e 1 massa corrida.
+                  Total: R$ 257,84. Posso encaminhar para a loja confirmar entrega?
+                </p>
+              </div>
+            </div>
+
+            <div class="demo-proof reveal reveal-delay">
+              <div class="screen-card">
+                <div class="screen-card-top">
+                  <span>Pedido em contexto real</span>
+                  <strong>Visual do produto em uso</strong>
+                </div>
+                <img src="./assets/app-3.png" alt="Tela do carrinho e pedido no aplicativo PreçoAI." />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section comparison-section" id="diferenciais">
+          <div class="section-heading reveal">
+            <span class="section-kicker">Diferenciais</span>
+            <h2>O que muda quando o atendimento deixa de ser manual e vira comercial inteligente.</h2>
+          </div>
+
+          <div class="comparison-grid">
+            <article class="comparison-card comparison-card-muted reveal">
+              <span class="comparison-label">Atendimento Tradicional</span>
+              <ul>
+                <li><svg><use href="#icon-x"></use></svg> demora</li>
+                <li><svg><use href="#icon-x"></use></svg> horário comercial</li>
+                <li><svg><use href="#icon-x"></use></svg> respostas repetitivas</li>
+                <li><svg><use href="#icon-x"></use></svg> vendedor ocupado</li>
+                <li><svg><use href="#icon-x"></use></svg> erros</li>
+                <li><svg><use href="#icon-x"></use></svg> perca de vendas</li>
+              </ul>
+            </article>
+
+            <article class="comparison-card comparison-card-accent reveal reveal-delay">
+              <span class="comparison-label">Ecommerce PreçoAI</span>
+              <ul>
+                <li><svg><use href="#icon-check"></use></svg> atendimento instantâneo</li>
+                <li><svg><use href="#icon-check"></use></svg> IA treinada</li>
+                <li><svg><use href="#icon-check"></use></svg> pesquisa inteligente</li>
+                <li><svg><use href="#icon-check"></use></svg> pedido automático</li>
+                <li><svg><use href="#icon-check"></use></svg> funciona 24 horas</li>
+                <li><svg><use href="#icon-check"></use></svg> aumenta conversão</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="para-quem">
+          <div class="section-heading reveal">
+            <span class="section-kicker">Para quem é</span>
+            <h2>Construído para operações comerciais com catálogo, atendimento e venda recorrente.</h2>
+          </div>
+
+          <div class="audience-grid">
+            <article class="audience-card reveal"><svg><use href="#icon-building"></use></svg><span>Materiais de Construção</span></article>
+            <article class="audience-card reveal"><svg><use href="#icon-car"></use></svg><span>Auto Peças</span></article>
+            <article class="audience-card reveal"><svg><use href="#icon-basket"></use></svg><span>Mercados</span></article>
+            <article class="audience-card reveal"><svg><use href="#icon-pill"></use></svg><span>Farmácias</span></article>
+            <article class="audience-card reveal"><svg><use href="#icon-monitor"></use></svg><span>Lojas de Informática</span></article>
+            <article class="audience-card reveal"><svg><use href="#icon-paw"></use></svg><span>Pet Shops</span></article>
+            <article class="audience-card reveal"><svg><use href="#icon-paint"></use></svg><span>Tintas</span></article>
+            <article class="audience-card reveal"><svg><use href="#icon-package"></use></svg><span>Distribuidoras</span></article>
+            <article class="audience-card reveal"><svg><use href="#icon-glasses"></use></svg><span>Óticas</span></article>
+            <article class="audience-card reveal"><svg><use href="#icon-leaf"></use></svg><span>Agropecuárias</span></article>
+          </div>
+        </section>
+
+        <section class="section" id="modulos">
+          <div class="section-heading reveal">
+            <span class="section-kicker">Módulos</span>
+            <h2>Uma plataforma única para o atendimento comercial omnichannel.</h2>
+          </div>
+
+          <div class="modules-grid">
+            <div class="module-chip reveal"><svg><use href="#icon-whatsapp"></use></svg>WhatsApp Oficial</div>
+            <div class="module-chip reveal"><svg><use href="#icon-monitor"></use></svg>Web Chat</div>
+            <div class="module-chip reveal"><svg><use href="#icon-instagram"></use></svg>Instagram</div>
+            <div class="module-chip reveal"><svg><use href="#icon-facebook"></use></svg>Facebook</div>
+            <div class="module-chip reveal"><svg><use href="#icon-brain"></use></svg>Catálogo Inteligente</div>
+            <div class="module-chip reveal"><svg><use href="#icon-file"></use></svg>Pedidos</div>
+            <div class="module-chip reveal"><svg><use href="#icon-search"></use></svg>Pesquisa de Produtos</div>
+            <div class="module-chip reveal"><svg><use href="#icon-cart"></use></svg>Carrinho</div>
+            <div class="module-chip reveal"><svg><use href="#icon-chart"></use></svg>Dashboard</div>
+            <div class="module-chip reveal"><svg><use href="#icon-api"></use></svg>API</div>
+            <div class="module-chip reveal"><svg><use href="#icon-file"></use></svg>Relatórios</div>
+            <div class="module-chip reveal"><svg><use href="#icon-bot"></use></svg>IA</div>
+          </div>
+        </section>
+
+        <section class="section pricing-section" id="business">
+          <div class="section-heading reveal">
+            <span class="section-kicker">Plano Business</span>
+            <h2>Ideal para empresas que desejam automatizar o atendimento comercial.</h2>
+          </div>
+
+          <div class="pricing-layout">
+            <article class="pricing-table glass-card reveal">
+              <div class="pricing-header">
+                <div>
+                  <span class="pill">Plataforma Completa</span>
+                  <h3>Plano Business</h3>
+                  <p>
+                    Operação comercial pronta para responder clientes, pesquisar produtos
+                    e converter conversas em pedidos.
+                  </p>
+                </div>
+              </div>
+
+              <div class="pricing-columns">
+                <div>
+                  <h4>Inclui</h4>
+                  <ul class="feature-list">
+                    <li><svg><use href="#icon-check"></use></svg> Plataforma Completa</li>
+                    <li><svg><use href="#icon-check"></use></svg> IA Integrada</li>
+                    <li><svg><use href="#icon-check"></use></svg> Pesquisa Inteligente</li>
+                    <li><svg><use href="#icon-check"></use></svg> Catálogo</li>
+                    <li><svg><use href="#icon-check"></use></svg> Carrinho Inteligente</li>
+                    <li><svg><use href="#icon-check"></use></svg> Pedido Automático</li>
+                    <li><svg><use href="#icon-check"></use></svg> Atendimento Humano</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4>Limites</h4>
+                  <ul class="limit-list">
+                    <li>Até 1.500 atendimentos/mês</li>
+                    <li>Pedidos ilimitados</li>
+                    <li>Usuários ilimitados</li>
+                    <li>Até 1.000 produtos cadastrados</li>
+                    <li>Relatórios comerciais inclusos</li>
+                    <li>Suporte técnico especializado</li>
+                    <li>Atualizações contínuas incluídas</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <aside class="investment-card reveal reveal-delay" id="solicitar-demo">
+              <span class="pill">Investimento</span>
+              <h3>R$ 1.499/mês</h3>
+              <p>
+                Sem taxa de implantação. Sem fidelidade. Atualizações inclusas. Suporte
+                especializado.
+              </p>
+              <a
+                class="button button-secondary"
+                href="https://wa.me/5595984042260?text=Ol%C3%A1%2C%20quero%20solicitar%20uma%20demonstra%C3%A7%C3%A3o%20do%20Ecommerce%20Pre%C3%A7oAI."
+                target="_blank"
+                rel="noreferrer"
+              >
+                Falar pelo WhatsApp
+              </a>
+            </aside>
+          </div>
+        </section>
+
+        <section class="section final-cta reveal">
+          <div class="final-cta-card">
+            <span class="section-kicker">Transforme conversas em vendas</span>
+            <h2>O Ecommerce PreçoAI pesquisa produtos, responde clientes, monta pedidos e ajuda sua empresa a vender mais, todos os dias.</h2>
+            <p>
+              Estruture um atendimento comercial inteligente, com experiência premium,
+              automação real e um único objetivo: aumentar conversão.
+            </p>
+            <a
+              class="button button-primary button-large"
+              href="https://wa.me/5595984042260?text=Ol%C3%A1%2C%20quero%20solicitar%20uma%20demonstra%C3%A7%C3%A3o%20do%20Ecommerce%20Pre%C3%A7oAI."
+              target="_blank"
+              rel="noreferrer"
+            >
+              Solicitar Demonstração
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-brand">
+          <img src="./assets/favicon-wg.png" alt="" />
+          <div>
+            <strong>Ecommerce PreçoAI</strong>
+            <span>Atendimento Inteligente para Comércio</span>
+          </div>
+        </div>
+        <div class="footer-columns">
+          <div>
+            <span>Produto</span>
+            <a href="#como-funciona">Como funciona</a>
+            <a href="#beneficios">Benefícios</a>
+            <a href="#business">Plano Business</a>
+          </div>
+          <div>
+            <span>Módulos</span>
+            <a href="#modulos">WhatsApp Oficial</a>
+            <a href="#modulos">Dashboard</a>
+            <a href="#modulos">APIs</a>
+          </div>
+          <div>
+            <span>Institucional</span>
+            <a href="mailto:contato@precoai.com">contato@precoai.com</a>
+            <a href="#solicitar-demo">Solicitar Demonstração</a>
+            <a href="https://wa.me/5595984042260?text=Ol%C3%A1%2C%20quero%20solicitar%20uma%20demonstra%C3%A7%C3%A3o%20do%20Ecommerce%20Pre%C3%A7oAI." target="_blank" rel="noreferrer">WhatsApp</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
