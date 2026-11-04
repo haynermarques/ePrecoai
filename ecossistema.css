@@ -263,3 +263,5 @@ a.shot:hover { transform: translateY(-4px); border-color: rgba(89,212,0,.45); }
 .feat-tag { margin-top: 14px; color: var(--accent-strong); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .feat-link h3 { margin-top: 6px; }
 .feat-link .more { margin-top: auto; padding-top: 14px; color: var(--accent-strong); font-weight: 700; font-size: .92rem; }
+@media (max-width: 760px) { .steps[style*="repeat(3"] { grid-template-columns: 1fr !important; } }
+.eco-hero .eco-h1, .eco-h2 { text-wrap: balance; }
