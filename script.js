@@ -49,3 +49,16 @@ document.querySelectorAll("[data-tilt]").forEach((card) => {
     card.style.transform = "";
   });
 });
+
+document.querySelectorAll("form[data-wa]").forEach((form) => {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const linhas = [form.dataset.msg, ""];
+    [["nome", "Nome"], ["empresa", "Empresa"], ["segmento", "Segmento"], ["canais", "Canais"]].forEach(([chave, rotulo]) => {
+      const valor = String(data.get(chave) || "").trim();
+      if (valor) linhas.push(`${rotulo}: ${valor}`);
+    });
+    window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(linhas.join("\n"))}`, "_blank", "noopener");
+  });
+});
