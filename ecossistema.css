@@ -252,3 +252,14 @@ a.shot:hover { transform: translateY(-4px); border-color: rgba(89,212,0,.45); }
   .eco-h1 { font-size: clamp(2.1rem, 9vw, 2.8rem); }
   .eco-hero .hero-actions .button { width: 100%; }
 }
+
+/* Catálogo: papel no ecossistema */
+.base-node { display: flex; align-items: center; justify-content: center; gap: 14px; width: fit-content; max-width: 100%; margin: 40px auto 0; padding: 16px 24px; text-align: left;
+  border: 1px solid var(--accent-strong); border-radius: var(--radius-lg); background: var(--accent-soft); box-shadow: 0 18px 44px rgba(89,212,0,.14); }
+.base-node b { display: block; font-size: 1.05rem; } .base-node small { color: var(--muted); }
+.base-arrow { text-align: center; color: var(--accent-strong); font-size: 1.7rem; font-weight: 800; line-height: 1; margin: 14px 0; }
+.feat-link { display: flex; flex-direction: column; transition: transform .2s ease, border-color .2s ease; }
+.feat-link:hover { transform: translateY(-4px); border-color: rgba(89,212,0,.45); }
+.feat-tag { margin-top: 14px; color: var(--accent-strong); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.feat-link h3 { margin-top: 6px; }
+.feat-link .more { margin-top: auto; padding-top: 14px; color: var(--accent-strong); font-weight: 700; font-size: .92rem; }
