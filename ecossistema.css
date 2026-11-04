@@ -202,3 +202,26 @@
 @media (max-width: 640px) { .demo-form { grid-template-columns: 1fr; } .feat-grid[style*="repeat(4"] { grid-template-columns: 1fr !important; } }
 
 .form-thanks { grid-column: 1 / -1; margin: 0; padding: 14px 16px; border-radius: 14px; background: var(--accent-soft); border: 1px solid rgba(89,212,0,.3); line-height: 1.6; }
+
+/* Prints nos heros e cards, com leitura no celular */
+.shot-bar span { margin-left: 8px; color: var(--muted); font-size: .76rem; font-weight: 600; }
+a.shot { display: block; transition: transform .2s ease, border-color .2s ease; }
+a.shot:hover { transform: translateY(-4px); border-color: rgba(89,212,0,.45); }
+.collage { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.collage .shot-main { grid-column: 1 / -1; }
+.pillar-art { padding: 0; }
+.pillar-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shot img { background: #fff; }
+
+@media (max-width: 640px) {
+  .shot:not(.shot-main):not(a) { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .shot:not(a) img { min-width: 760px; }
+  .shot:not(a)::after { content: "Arraste para ver a tela completa →"; display: block; padding: 8px 16px; color: var(--muted); font-size: .76rem; border-top: 1px solid var(--line); position: sticky; left: 0; }
+  .collage { grid-template-columns: 1fr; }
+  .pillar-art { height: 170px; }
+}
+
+/* Evita que prints largos estiquem as colunas do grid no celular */
+.eco-hero > *, .split > *, .collage > *, .pillars > * { min-width: 0; }
+.steps > *, .eco-strip > *, .funnel > *, .feat-grid > * { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 420px) { .steps, .eco-strip { grid-template-columns: 1fr; } }
