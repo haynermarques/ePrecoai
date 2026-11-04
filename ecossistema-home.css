@@ -215,3 +215,7 @@
   .split.stack .shot img { min-width: 760px; }
   .split.stack .shot::after { content: "Arraste para ver a tela completa →"; display: block; padding: 8px 16px; color: var(--muted); font-size: .76rem; border-top: 1px solid var(--line); position: sticky; left: 0; }
 }
+
+/* Seção "Veja em ação": só o vídeo, centralizado e responsivo */
+.video-solo { max-width: 960px; width: 100%; margin: 40px auto 0; }
+.video-solo .video-box video { width: 100%; height: auto; display: block; }
