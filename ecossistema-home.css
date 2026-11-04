@@ -245,3 +245,15 @@
 .interest h2 { text-wrap: balance; }
 .interest h2 .hl { display: block; }
 @media (max-width: 400px) { .interest h2 { font-size: 1.75rem; } }
+
+/* Caixinha de seleção real (checkbox) e espaçamento */
+.interest-grid { gap: 18px; margin: 12px 0 34px; }
+.interest-status { margin: 0 auto 30px !important; }
+.interest-box { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; z-index: 2; }
+.interest-card { cursor: pointer; }
+.interest-card:has(.interest-box:focus-visible) { outline: 2px solid var(--accent-strong); outline-offset: 3px; }
+.interest-check { width: 24px; height: 24px; border-radius: 7px; border: 2px solid rgba(255,255,255,.35); background: rgba(255,255,255,.04); color: transparent; }
+.interest-check::after { content: "✓"; font-size: .85rem; font-weight: 800; line-height: 1; }
+.interest-card.is-on .interest-check { background: var(--accent-strong); border-color: var(--accent-strong); color: #071007; }
+.interest-card.is-on { border-color: var(--accent-strong); background: var(--accent-soft); box-shadow: 0 14px 36px rgba(89,212,0,.16); }
+@media (max-width: 560px) { .interest-grid { gap: 14px; margin-bottom: 30px; } }

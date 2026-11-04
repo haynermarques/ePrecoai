@@ -71,34 +71,45 @@ document.querySelectorAll(".interest").forEach((box) => {
   const all = box.querySelector('[data-key="all"]');
   const status = box.querySelector(".interest-status");
   const cta = box.querySelector(".interest-cta");
-  const selected = (list) => list.filter((c) => c.getAttribute("aria-pressed") === "true");
-  const set = (card, on) => card.setAttribute("aria-pressed", String(on));
+  const input = (card) => card.querySelector("input");
+  const isOn = (card) => input(card).checked;
+  const setOn = (card, on) => {
+    input(card).checked = on;
+    card.classList.toggle("is-on", on);
+  };
+  const lista = (nomes) => (nomes.length > 1 ? `${nomes.slice(0, -1).join(", ")} e ${nomes[nomes.length - 1]}` : nomes[0] || "");
 
-  const lista = (nomes) => (nomes.length > 1 ? `${nomes.slice(0, -1).join(", ")} e ${nomes[nomes.length - 1]}` : nomes[0]);
+  const link = () => {
+    const sel = parts.filter(isOn);
+    const texto = sel.length
+      ? ["Olá! Vim pelo site do PreçoAI e tenho interesse em:", ...sel.map((c) => `• ${c.dataset.label}`)].join("\n")
+      : "Olá, quero conhecer o ecossistema PreçoAI.";
+    return `https://wa.me/${box.dataset.wa}?text=${encodeURIComponent(texto)}`;
+  };
 
   const refresh = (hint) => {
-    const sel = selected(parts);
+    const sel = parts.filter(isOn);
     const full = sel.length === parts.length;
-    set(all, full);
-    if (!sel.length) {
-      status.hidden = true;
-      cta.textContent = "Fale conosco";
-      cta.href = `https://wa.me/${box.dataset.wa}?text=${encodeURIComponent("Olá, quero conhecer o ecossistema PreçoAI.")}`;
-      return;
+    setOn(all, full);
+    status.hidden = !sel.length;
+    if (sel.length) {
+      status.innerHTML = `${hint ? `<span class="interest-hint">${hint}</span>` : ""}<span>Você escolheu: <strong>${lista(sel.map((c) => c.dataset.label))}</strong></span>`;
     }
-    status.hidden = false;
-    status.innerHTML = `${hint ? `<span class="interest-hint">${hint}</span>` : ""}<span>Você escolheu: <strong>${lista(sel.map((c) => c.dataset.label))}</strong></span>`;
-    cta.textContent = full ? "Falar sobre o ecossistema completo" : `Falar sobre ${lista(sel.map((c) => c.dataset.short))}`;
-    const linhas = ["Olá! Vim pelo site do PreçoAI e tenho interesse em:", ...sel.map((c) => `• ${c.dataset.label}`)];
-    cta.href = `https://wa.me/${box.dataset.wa}?text=${encodeURIComponent(linhas.join("\n"))}`;
+    cta.textContent = !sel.length ? "Quero conhecer mais" : full ? "Quero conhecer o ecossistema completo" : `Quero conhecer ${lista(sel.map((c) => c.dataset.short))}`;
+    cta.href = link();
   };
 
   cards.forEach((card) => {
-    card.addEventListener("click", () => {
-      const on = card.getAttribute("aria-pressed") !== "true";
-      if (card === all) parts.forEach((c) => set(c, on));
-      else set(card, on);
+    input(card).addEventListener("change", () => {
+      const on = isOn(card);
+      if (card === all) parts.forEach((c) => setOn(c, on));
+      setOn(card, on);
       refresh(on ? card.dataset.hint : "");
     });
+  });
+
+  // garante a mensagem certa no instante do clique, mesmo que algo tenha mudado
+  cta.addEventListener("click", () => {
+    cta.href = link();
   });
 });
