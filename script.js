@@ -65,6 +65,31 @@ document.querySelectorAll("form[data-wa]").forEach((form) => {
   });
 });
 
+// origem do lead, lida do link da campanha (?utm_source=instagram | facebook | whatsapp)
+const origemDoLead = () => {
+  const p = new URLSearchParams(window.location.search);
+  const fonte = (p.get("utm_source") || p.get("origem") || "").toLowerCase();
+  const frases = {
+    instagram: "Vim pelo Instagram.",
+    ig: "Vim pelo Instagram.",
+    facebook: "Vim pelo Facebook.",
+    fb: "Vim pelo Facebook.",
+    whatsapp: "Vim por um link no WhatsApp.",
+    wa: "Vim por um link no WhatsApp.",
+  };
+  return frases[fonte] || "";
+};
+
+document.querySelectorAll("[data-wa-msg]").forEach((a) => {
+  const monta = () => {
+    const origem = origemDoLead();
+    const texto = [a.dataset.waMsg, origem].filter(Boolean).join("\n");
+    a.href = `https://wa.me/${a.dataset.waNum}?text=${encodeURIComponent(texto)}`;
+  };
+  monta();
+  a.addEventListener("click", monta);
+});
+
 document.querySelectorAll(".interest").forEach((box) => {
   const cards = [...box.querySelectorAll(".interest-card")];
   const parts = cards.filter((c) => c.dataset.key !== "all");
@@ -81,9 +106,12 @@ document.querySelectorAll(".interest").forEach((box) => {
 
   const link = () => {
     const sel = parts.filter(isOn);
-    const texto = sel.length
-      ? ["Olá! Vim pelo site do PreçoAI e tenho interesse em:", ...sel.map((c) => `• ${c.dataset.label}`)].join("\n")
-      : "Olá, quero conhecer o ecossistema PreçoAI.";
+    const intro = box.dataset.intro || "Olá! Vim pelo site do PreçoAI e tenho interesse em:";
+    const padrao = box.dataset.padrao || "Olá, quero conhecer o ecossistema PreçoAI.";
+    const origem = box.hasAttribute("data-origem") ? origemDoLead() : "";
+    const linhas = sel.length ? [intro, ...sel.map((c) => `• ${c.dataset.label}`)] : [padrao];
+    if (origem) linhas.push("", origem);
+    const texto = linhas.join("\n");
     return `https://wa.me/${box.dataset.wa}?text=${encodeURIComponent(texto)}`;
   };
 
@@ -107,6 +135,8 @@ document.querySelectorAll(".interest").forEach((box) => {
       refresh(on ? card.dataset.hint : "");
     });
   });
+
+  cta.href = link();
 
   // garante a mensagem certa no instante do clique, mesmo que algo tenha mudado
   cta.addEventListener("click", () => {

@@ -1,0 +1,49 @@
+/* Final da home: escolha de interesse que monta a mensagem do WhatsApp */
+.interest h2 { line-height: 1.12; }
+.interest-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 8px 0 22px; text-align: left; }
+.interest-card { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 20px 18px; border: 1px solid var(--line); border-radius: var(--radius-lg);
+  background: rgba(255,255,255,.04); color: var(--text); font: inherit; text-align: left; cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease; }
+.interest-card:hover { transform: translateY(-3px); border-color: rgba(89,212,0,.4); }
+.interest-card:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 3px; }
+.interest-icon { font-size: 1.5rem; line-height: 1; }
+.interest-card b { font-size: 1.02rem; line-height: 1.25; letter-spacing: -.01em; }
+.interest-card small { color: var(--muted); line-height: 1.45; font-size: .86rem; }
+.interest-check { position: absolute; top: 12px; right: 12px; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%;
+  border: 1px solid var(--line); color: transparent; font-size: .8rem; font-weight: 800; transition: all .18s ease; }
+.interest-card[aria-pressed="true"] { border-color: var(--accent-strong); background: var(--accent-soft); box-shadow: 0 14px 36px rgba(89,212,0,.16); }
+.interest-card[aria-pressed="true"] .interest-check { background: var(--accent-strong); border-color: var(--accent-strong); color: #071007; }
+.interest-status { display: grid; gap: 4px; margin: 0 auto 22px !important; max-width: 640px; color: var(--text); font-size: .98rem; }
+.interest-status[hidden] { display: none; }
+.interest-hint { color: #d7ffc2; font-weight: 600; }
+.interest-status strong { color: var(--accent-strong); }
+.interest-cta { max-width: 100%; text-align: center; }
+@media (max-width: 980px) { .interest-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .interest-grid { grid-template-columns: 1fr; } .interest-cta { width: 100%; } }
+.interest h2 { text-wrap: balance; }
+.interest h2 .hl { display: block; }
+@media (max-width: 400px) { .interest h2 { font-size: 1.75rem; } }
+
+/* Caixinha de seleção real (checkbox) e espaçamento */
+.interest-grid { gap: 18px; margin: 12px 0 34px; }
+.interest-status { margin: 0 auto 30px !important; }
+.interest-box { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; z-index: 2; }
+.interest-card { cursor: pointer; }
+.interest-card:has(.interest-box:focus-visible) { outline: 2px solid var(--accent-strong); outline-offset: 3px; }
+.interest-check { width: 24px; height: 24px; border-radius: 7px; border: 2px solid rgba(255,255,255,.35); background: rgba(255,255,255,.04); color: transparent; }
+.interest-check::after { content: "✓"; font-size: .85rem; font-weight: 800; line-height: 1; }
+.interest-card.is-on .interest-check { background: var(--accent-strong); border-color: var(--accent-strong); color: #071007; }
+.interest-card.is-on { border-color: var(--accent-strong); background: var(--accent-soft); box-shadow: 0 14px 36px rgba(89,212,0,.16); }
+@media (max-width: 560px) { .interest-grid { gap: 14px; margin-bottom: 30px; } }
+
+/* ===== Página de funil (conheca.html): sem menu, foco no vídeo e no botão ===== */
+.funil-top { width: min(calc(100% - 40px), var(--content-width)); margin: 0 auto; padding: 26px 0 0; display: flex; justify-content: center; }
+.funil-hero { padding-top: 36px; }
+.funil-video { width: 100%; max-width: 860px; margin-inline: auto; }
+.funil-video .video-box video { width: 100%; height: auto; display: block; }
+.funil-cta { margin-top: 28px; }
+.funil-nota { margin: 14px 0 0; color: var(--muted); font-size: .95rem; }
+.funil-foot { width: min(calc(100% - 40px), var(--content-width)); margin: 0 auto; padding: 8px 0 56px; text-align: center; color: var(--muted); }
+.funil-foot a { color: var(--accent-strong); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.funil-copy { font-size: .84rem; opacity: .8; }
+@media (max-width: 640px) { .funil-cta { width: 100%; } }
