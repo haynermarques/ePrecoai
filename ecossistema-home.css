@@ -219,3 +219,29 @@
 /* Seção "Veja em ação": só o vídeo, centralizado e responsivo */
 .video-solo { max-width: 960px; width: 100%; margin: 40px auto 0; }
 .video-solo .video-box video { width: 100%; height: auto; display: block; }
+
+/* Final da home: escolha de interesse que monta a mensagem do WhatsApp */
+.interest h2 { line-height: 1.12; }
+.interest-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 8px 0 22px; text-align: left; }
+.interest-card { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 20px 18px; border: 1px solid var(--line); border-radius: var(--radius-lg);
+  background: rgba(255,255,255,.04); color: var(--text); font: inherit; text-align: left; cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease; }
+.interest-card:hover { transform: translateY(-3px); border-color: rgba(89,212,0,.4); }
+.interest-card:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 3px; }
+.interest-icon { font-size: 1.5rem; line-height: 1; }
+.interest-card b { font-size: 1.02rem; line-height: 1.25; letter-spacing: -.01em; }
+.interest-card small { color: var(--muted); line-height: 1.45; font-size: .86rem; }
+.interest-check { position: absolute; top: 12px; right: 12px; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%;
+  border: 1px solid var(--line); color: transparent; font-size: .8rem; font-weight: 800; transition: all .18s ease; }
+.interest-card[aria-pressed="true"] { border-color: var(--accent-strong); background: var(--accent-soft); box-shadow: 0 14px 36px rgba(89,212,0,.16); }
+.interest-card[aria-pressed="true"] .interest-check { background: var(--accent-strong); border-color: var(--accent-strong); color: #071007; }
+.interest-status { display: grid; gap: 4px; margin: 0 auto 22px !important; max-width: 640px; color: var(--text); font-size: .98rem; }
+.interest-status[hidden] { display: none; }
+.interest-hint { color: #d7ffc2; font-weight: 600; }
+.interest-status strong { color: var(--accent-strong); }
+.interest-cta { max-width: 100%; text-align: center; }
+@media (max-width: 980px) { .interest-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .interest-grid { grid-template-columns: 1fr; } .interest-cta { width: 100%; } }
+.interest h2 { text-wrap: balance; }
+.interest h2 .hl { display: block; }
+@media (max-width: 400px) { .interest h2 { font-size: 1.75rem; } }

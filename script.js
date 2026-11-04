@@ -64,3 +64,41 @@ document.querySelectorAll("form[data-wa]").forEach((form) => {
     if (thanks) thanks.hidden = false;
   });
 });
+
+document.querySelectorAll(".interest").forEach((box) => {
+  const cards = [...box.querySelectorAll(".interest-card")];
+  const parts = cards.filter((c) => c.dataset.key !== "all");
+  const all = box.querySelector('[data-key="all"]');
+  const status = box.querySelector(".interest-status");
+  const cta = box.querySelector(".interest-cta");
+  const selected = (list) => list.filter((c) => c.getAttribute("aria-pressed") === "true");
+  const set = (card, on) => card.setAttribute("aria-pressed", String(on));
+
+  const lista = (nomes) => (nomes.length > 1 ? `${nomes.slice(0, -1).join(", ")} e ${nomes[nomes.length - 1]}` : nomes[0]);
+
+  const refresh = (hint) => {
+    const sel = selected(parts);
+    const full = sel.length === parts.length;
+    set(all, full);
+    if (!sel.length) {
+      status.hidden = true;
+      cta.textContent = "Fale conosco";
+      cta.href = `https://wa.me/${box.dataset.wa}?text=${encodeURIComponent("Olá, quero conhecer o ecossistema PreçoAI.")}`;
+      return;
+    }
+    status.hidden = false;
+    status.innerHTML = `${hint ? `<span class="interest-hint">${hint}</span>` : ""}<span>Você escolheu: <strong>${lista(sel.map((c) => c.dataset.label))}</strong></span>`;
+    cta.textContent = full ? "Falar sobre o ecossistema completo" : `Falar sobre ${lista(sel.map((c) => c.dataset.short))}`;
+    const linhas = ["Olá! Vim pelo site do PreçoAI e tenho interesse em:", ...sel.map((c) => `• ${c.dataset.label}`)];
+    cta.href = `https://wa.me/${box.dataset.wa}?text=${encodeURIComponent(linhas.join("\n"))}`;
+  };
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const on = card.getAttribute("aria-pressed") !== "true";
+      if (card === all) parts.forEach((c) => set(c, on));
+      else set(card, on);
+      refresh(on ? card.dataset.hint : "");
+    });
+  });
+});
