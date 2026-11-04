@@ -200,3 +200,5 @@
 .step.nonum::before { content: "✓"; }
 @media (max-width: 980px) { .feat-grid[style*="repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; } }
 @media (max-width: 640px) { .demo-form { grid-template-columns: 1fr; } .feat-grid[style*="repeat(4"] { grid-template-columns: 1fr !important; } }
+
+.form-thanks { grid-column: 1 / -1; margin: 0; padding: 14px 16px; border-radius: 14px; background: var(--accent-soft); border: 1px solid rgba(89,212,0,.3); line-height: 1.6; }
